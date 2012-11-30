@@ -1,1 +1,2 @@
 Prototyping a synthesizer application for small screens.
+For now, it's built on top of a <a href="http://chromium.googlecode.com/svn/trunk/samples/audio/wavetable-synth.html">Chromium demo wave table synth</a>.

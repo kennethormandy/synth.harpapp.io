@@ -10,30 +10,134 @@
     <meta content='width=device-width, initial-scale=1.0 maximum-scale=1.0 user-scalable=0' name='viewport' />
 
     <link rel="stylesheet" href="css/application.css"></link>
-
-    <script src="js/zepto-1.0.rc.js" ></script>
-    <script src="js/zepto-onpress.js" ></script>
+    <script src="js/init.min.js"></script>
+    <!-- <script>try{Typekit.load();}catch(e){}</script> -->
   </head>
   <body>
+    <div id="loading" class="loading">Loading&hellip;</div>
     <div class="main">
       <h1>Synth</h1>
       <ol class="columns">
         <li class="col col1 module module-play">
           <header class="col-header">
-            <h2 class="col-head-2">Play</h2>
+            <h2 class="col-head-2"><abbr title="Controls">CTRL</abbr></h2>
           </header>
+          <section class="module-wrapper">
+            <!-- <div class="m-play-controls"> -->
+              <button id="controls-play">Play</button></button>
+            <!-- </div> -->
+            <div class="module--toggle">
+                <canvas id="sequenceView" width="400px" height="300px"></canvas>
+              <!-- <table class="m-play-grid">
+                <tr>
+                  <td id="key_1" class="m-play-button"></td>
+                  <td id="key_2" class="m-play-button"></td>
+                  <td id="key_3" class="m-play-button"></td>
+                  <td id="key_4" class="m-play-button"></td>
+                  <td id="key_5" class="m-play-button"></td>
+                  <td id="key_6" class="m-play-button"></td>
+                  <td id="key_7" class="m-play-button"></td>
+                  <td id="key_8" class="m-play-button"></td>
+                </tr>
+                <tr>
+                  <td id="key_9" class="m-play-button"></td>
+                  <td id="key_10" class="m-play-button"></td>
+                  <td id="key_11" class="m-play-button"></td>
+                  <td id="key_12" class="m-play-button"></td>
+                  <td id="key_13" class="m-play-button"></td>
+                  <td id="key_14" class="m-play-button"></td>
+                  <td id="key_15" class="m-play-button"></td>
+                  <td id="key_16" class="m-play-button"></td>
+                </tr>
+                <tr>
+                  <td id="key_17" class="m-play-button"></td>
+                  <td id="key_18" class="m-play-button"></td>
+                  <td id="key_19" class="m-play-button"></td>
+                  <td id="key_20" class="m-play-button"></td>
+                  <td id="key_21" class="m-play-button"></td>
+                  <td id="key_22" class="m-play-button"></td>
+                  <td id="key_23" class="m-play-button"></td>
+                  <td id="key_24" class="m-play-button"></td>
+                </tr>
+                <tr>
+                  <td id="key_25" class="m-play-button"></td>
+                  <td id="key_26" class="m-play-button"></td>
+                  <td id="key_27" class="m-play-button"></td>
+                  <td id="key_28" class="m-play-button"></td>
+                  <td id="key_29" class="m-play-button"></td>
+                  <td id="key_30" class="m-play-button"></td>
+                  <td id="key_31" class="m-play-button"></td>
+                  <td id="key_32" class="m-play-button"></td>
+                </tr>
+                <tr>
+                  <td id="key_33" class="m-play-button"></td>
+                  <td id="key_34" class="m-play-button"></td>
+                  <td id="key_35" class="m-play-button"></td>
+                  <td id="key_36" class="m-play-button"></td>
+                  <td id="key_37" class="m-play-button"></td>
+                  <td id="key_38" class="m-play-button"></td>
+                  <td id="key_39" class="m-play-button"></td>
+                  <td id="key_40" class="m-play-button"></td>
+                </tr>
+                <tr>
+                  <td id="key_41" class="m-play-button"></td>
+                  <td id="key_42" class="m-play-button"></td>
+                  <td id="key_43" class="m-play-button"></td>
+                  <td id="key_44" class="m-play-button"></td>
+                  <td id="key_45" class="m-play-button"></td>
+                  <td id="key_46" class="m-play-button"></td>
+                  <td id="key_47" class="m-play-button"></td>
+                  <td id="key_48" class="m-play-button"></td>
+                </tr>
+                <tr>
+                  <td id="key_49" class="m-play-button"></td>
+                  <td id="key_50" class="m-play-button"></td>
+                  <td id="key_51" class="m-play-button"></td>
+                  <td id="key_52" class="m-play-button"></td>
+                  <td id="key_53" class="m-play-button"></td>
+                  <td id="key_54" class="m-play-button"></td>
+                  <td id="key_55" class="m-play-button"></td>
+                  <td id="key_56" class="m-play-button"></td>
+                </tr>
+                <tr>
+                  <td id="key_57" class="m-play-button"></td>
+                  <td id="key_58" class="m-play-button"></td>
+                  <td id="key_59" class="m-play-button"></td>
+                  <td id="key_60" class="m-play-button"></td>
+                  <td id="key_61" class="m-play-button"></td>
+                  <td id="key_62" class="m-play-button"></td>
+                  <td id="key_63" class="m-play-button"></td>
+                  <td id="key_64" class="m-play-button"></td>
+                </tr>
+              </table> -->
+            </div>
+          </section>
         </li>
-        <li class="col col1 subs">
+        <a href="#" id="next">Next</a>
+        <li class="col col1 subs module">
           <ol class="sub-columns">
-            <li class="sub-col sub-col1 module module-osc1">
+            <li class="sub-col sub-col1  module-osc1">
               <header class="col-header">
                 <h2 class="col-head-2"><abbr title="Oscillator 1">Osc1<abbr></h2>
               </header>
+              <section class="module-wrapper">
+
+                <ul class="module-osc-waves" id="module-flick-osc1">
+                  <li class="module-osc-wave" data-type="wave" data-wave="saw">Sawtooth</li>
+                  <li class="module-osc-wave" data-type="wave" data-wave="triangle">Triangle</li>
+                  <li class="module-osc-wave" data-type="wave" data-wave="square">Square</li>
+                  <li class="module-osc-wave" data-type="wave" data-wave="noise">Noise</li>
+                  <li class="module-osc-wave" data-type="wave" data-wave="pulse">Pulse</li>
+                </ul>
+
+              </section>
             </li>
-            <li class="sub-col sub-col1 module module-osc2">
+            <li class="sub-col sub-col1 module-osc2">
               <header class="col-header">
                 <h2 class="col-head-2"><abbr title="Oscillator 2">Osc2<abbr></h2>
               </header>
+              <section class="module-wrapper">
+              </section>
             </li>
           </ol>
         </li>
@@ -41,18 +145,46 @@
           <header class="col-header">
             <h2 class="col-head-2">Filter</h2>
           </header>
+          <section class="module-wrapper">
+            <ul class="toolbar">
+              <li><a href="#sparkler">Sparkler</a></li>
+              <li><a href="#circle">Circle</a></li>
+              <li><a href="#notes">Notes</a></li>
+            </ul>
+            <!-- <canvas class="m-filter-pad" id="content"></canvas> -->
+          </section>
         </li>
         <li class="col col1 module module-modulate">
           <header class="col-header">
             <h2 class="col-head-2"><abbr title="Modulation">Mod</abbr></h2>
           </header>
+          <section class="module-wrapper">
+            <form class="module-form">
+              <output id="module-range-modulate-output" class="module-output">0</output>
+              <input type="range" class="module-range" id="module-range-modulate-master" value="100" />​
+              <label for="module-range-modulate" class="module-label range-label">Volume</label>
+            </form>
+          </section>
         </li>
         <li class="col col1 module module-master">
           <header class="col-header">
             <h2 class="col-head-2"><abbr title="Master Control">Mstr</abbr></h2>
           </header>
+          <section class="module-wrapper">
+            <form class="module-form">
+              <output id="module-range-volume-output" class="module-output">50</output>
+              <input type="range" class="module-range" id="module-range-volume-master" value="50" />​
+              <label for="module-range-volume-master" class="module-label range-label">Volume</label>
+            </form>
+          </section>
         </li>
       </ol>
     </div>
+    <div id="controls"></div>
+    <div id="bpmDelayMenu"></div>
+    <div id="info"></div>
+    <select id="wavePopup1" onchange="setWaveTable1(this.value);"></select>
+    <label>Polyphonic</label>
+    <input type="checkbox" onclick="playMonophonic = !playMonophonic;" />
   </body>
 </html>

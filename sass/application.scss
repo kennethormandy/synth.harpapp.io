@@ -1,11 +1,13 @@
-@import "compass";
-@import "_normalise";
+@import "compass", "_mixins", "_normalise";
 
 $columns: 6;
 $main-colour: #008C69;
 
 * {
 	@include box-sizing(border-box);
+	@include user-select(none);
+	-webkit-touch-callout: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 body {
@@ -37,6 +39,18 @@ canvas {
     z-index: 0;
 }
 
+input, textarea {
+	@include user-select(text);
+	-webkit-touch-callout: default;
+}
+
+input[type="number"] {
+	width: 100%;
+	max-width: 3em;
+	padding: 0;
+	margin: 0;
+}
+
 .loading {
 	position: absolute;
 	text-align: center;
@@ -53,8 +67,9 @@ canvas {
 
 .main {
 	font-size: 1.25em;
-	width: 100%;
-	max-height: 480px;
+	width: 100.3%; // Some issue I'm having on mobile safari
+	height: 480px;
+	overflow: hidden;
 	height: 320px;
 	background: #CCC;
 	border-top: 1px solid #333;
@@ -128,50 +143,92 @@ canvas {
 }
 
 .module--toggle {
-	@include opacity(0);
-	@include transition();
+	display: none;
 }
 
 .module--open .module--toggle {
+	display: block;
 	@include opacity(1);
 }
 
 .module-form {
 	height: 12em;
+	float: left;
+	@include transform(rotate(90deg));
+	-webkit-transform-origin: top left;
+	height: 1em;
+	position: relative;
+	left: 50%;
+	margin-left: 0.5em;
 }
 
 .module-label {
 	display: block;
-	font-size: 0.5em;
+	font-size: 0.66em;
 	font-weight: 400;
-	text-shadow: 0 1px 0 rgba(#000, 0.75);
+	text-shadow: -2px 0 0 rgba(#000, 0.33);
 	position: relative;
 	text-align: center;
-	top: 20em;
+	bottom: 2em;
+
+	display: block;
+	-webkit-transform-origin: top center;
+
+	@include transform(rotate(180deg));
 }
 
 .module-range {
 	display: block;
-	width: 12em;
+	width: 11.5em;
 	height: 1em;
-	margin-left: 0.5em;
-	left: 50%;
 	position: relative;
-	overflow: hidden;
-	-webkit-transform-origin: top left;
-	@include border-radius(0);
-	@include transform(rotate(90deg));
+	float: left;
+	top: -1em;
+	-webkit-transform-origin: center;
+	// border: 1px solid $main-colour;
+
+	@include border-radius(2px);
     @include appearance(none);
+    @include transition(all);
 }
+
+.module-output {
+	display: block;
+	-webkit-transform-origin: bottom left;
+	@include transform(rotate(-90deg));
+	width: 2em;
+	margin-bottom: -0.5em;
+	text-shadow: 0 2px 0 rgba(#000, 0.33);
+
+	text-align: center;
+}
+
+/* "Grips" on sliders
+
+.module-range::-webkit-slider-thumb::before {
+	content: "\2630";
+	display: block;
+	text-align: center;
+	font-size: 1em;
+	width: 1em;
+	height: 1em;
+	line-height: 1.1;
+	font-family: Helvetica;
+	color: #444;
+	text-shadow: 0 0 2px rgba(#000, 0.5);
+	@include transform(rotate(90deg));
+}
+
+*/
 
 .module-range::-webkit-slider-thumb {
     background: #333;
-    width: 1em;
+    width: 1.25em;
     padding: 0 0 1em 0 !important;
-    height: 1em;
+    height: 1.25em;
+    @include border-radius(2px);
     @include appearance(none);
 }​
-
 
 .module-play {
 	background: darken($main-colour, 5%);
@@ -207,51 +264,56 @@ canvas {
 	background: #CCC;
 }
 
-.module-osc1 {
+.module-osc {
 	background: $main-colour;
+	z-index: 10;
 }
 
-.module-osc1 .module-wrapper {
-	outline: 1px solid orange;
-	min-width: 100%;
-	min-height: 4em;
-	overflow: hidden;
-	background: #DDD;
-
-	@include box-sizing(border-box);
-}
-
-.module-osc-waves {
-	min-height: 4em;
-	width: 500%;
-	outline: 1px solid red;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	display: block;
-	overflow: hidden;
-
-	@include box-sizing(border-box);
+.module-osc .module-wrapper {
 }
 
 .module-osc-wave {
-	outline: 1px solid blue;
 	display: block;
 	position: relative;
 	float: left;
-	background: teal !important;
-	min-height: 4em;
-	min-width: 4em;
+	background: darken($main-colour, 5%) url("../images/waves.svg") center 60% no-repeat;
+	background-size: 300px 50%;
+	height: 4em;
 	width: 20%;
 	margin: 0;
 	padding: 0;
 
 	@include box-sizing(border-box);
-
 }
 
-.module-osc2 {
-	background: $main-colour;
+.module-flick-header {
+	background: darken($main-colour, 0%);
+	padding-bottom: 0.2em;
+	display: block;
+	margin-top: 0em;
+	font-size: 0.5em;
+	width: 100%;
+	text-align: center;
+}
+
+.module-osc-wave[data-wave="saw"] {
+	background-position: 0 60%;
+}
+
+.module-osc-wave[data-wave="noise"] {
+	background-position: -3em 60%;
+}
+
+.module-osc-wave[data-wave="pulse"] {
+	background-position: -6em 60%;
+}
+
+.module-osc-wave[data-wave="square"] {
+	background-position: -9em 60%;
+}
+
+.module-osc-wave[data-wave="triangle"] {
+	background-position: -12em 60%;
 }
 
 .module-filter {
@@ -260,17 +322,73 @@ canvas {
 
 .m-filter-pad {
 	background: darken($main-colour, 5%);
-	width: 100%;
+	width: 6.9em;
 	height: 10em;
 	@include border-radius(0.25em);
 	@include box-shadow(inset 0 0 1px rgba(#FFF, 1));
 	border: 1px solid #333;
+	float: left;
 }
 
-.module-modulate {
+.module-effect {
 	background: lighten($main-colour, 10%);
 }
 
 .module-master {
-	background: lighten($main-colour, 15%);
+	background: lighten($main-colour, 15%); //bimboms <3
+}
+
+/* Flickable Modules */
+
+/* Flickable wrapper */
+.module-flick {
+    overflow: hidden;
+    clear: left;
+    position: relative;
+}
+
+/* Scrolling container */
+.module-flick-wrap {
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Flickable items */
+.module-flick-item {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: auto;
+}
+
+/* Item indicator wrapper */
+.flickableIndicator {
+    text-align: center;
+    line-height: 1em;
+}
+
+/* Item indicator */
+.flickableIndicator span {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin: 0 0.125em;
+    background-color: #FFF;
+    border: 1px solid darken($main-colour, 5%);
+
+    @include box-sizing(content-box);
+    @include box-shadow(inset 0 0 1px rgba(#000, 1));
+    @include border-radius(5px);
+}
+
+/* Active item indicator */
+.flickableIndicator .flickableIndicatorActive {
+    background-color: $main-colour;
+}
+
+.slideshowNavigation {
+	display: none;
 }

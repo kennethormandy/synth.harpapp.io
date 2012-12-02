@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="css/application.css"></link>
     <script src="js/init.min.js"></script>
-    <!-- <script>try{Typekit.load();}catch(e){}</script> -->
+    <script type="text/javascript" src="//use.typekit.net/dbg2ehz.js"></script>
   </head>
   <body>
     <div id="loading" class="loading">Loading&hellip;</div>
@@ -24,10 +24,12 @@
           </header>
           <section class="module-wrapper">
             <!-- <div class="m-play-controls"> -->
-              <button id="controls-play">Play</button></button>
+              <button id="controls-play">Play</button>
+              <label for="controls-tempo">Tempo</label>
+              <input type="number" pattern="[0-9]*" value="120" id="controls-tempo" name="controls-tempo" />
             <!-- </div> -->
             <div class="module--toggle">
-                <canvas id="sequenceView" width="400px" height="300px"></canvas>
+                <canvas id="sequenceView"></canvas>
               <!-- <table class="m-play-grid">
                 <tr>
                   <td id="key_1" class="m-play-button"></td>
@@ -113,57 +115,121 @@
             </div>
           </section>
         </li>
-        <a href="#" id="next">Next</a>
-        <li class="col col1 subs module">
-          <ol class="sub-columns">
-            <li class="sub-col sub-col1  module-osc1">
-              <header class="col-header">
-                <h2 class="col-head-2"><abbr title="Oscillator 1">Osc1<abbr></h2>
-              </header>
-              <section class="module-wrapper">
-
-                <ul class="module-osc-waves" id="module-flick-osc1">
-                  <li class="module-osc-wave" data-type="wave" data-wave="saw">Sawtooth</li>
-                  <li class="module-osc-wave" data-type="wave" data-wave="triangle">Triangle</li>
-                  <li class="module-osc-wave" data-type="wave" data-wave="square">Square</li>
-                  <li class="module-osc-wave" data-type="wave" data-wave="noise">Noise</li>
-                  <li class="module-osc-wave" data-type="wave" data-wave="pulse">Pulse</li>
+        <li class="col col1 module module-osc">
+          <header class="col-header">
+            <h2><abbr title="Oscillators">OSCs</abbr></h2>
+          </header>
+          <section class="module-wrapper module-flick">
+             <ul class="module-osc-waves module-flick-wrap" id="module-flick-osc">
+                  <li class="module-osc-wave module-flick-item" data-type="wave" data-wave="saw">
+                    <h4 class="module-flick-header">Sawtooth</h4>
+                  </li>
+                  <li class="module-osc-wave module-flick-item" data-type="wave" data-wave="triangle">
+                    <h4 class="module-flick-header">Triangle</h4>
+                  </li>
+                  <li class="module-osc-wave module-flick-item" data-type="wave" data-wave="square">
+                    <h4 class="module-flick-header">Square</h4>
+                  </li>
+                  <li class="module-osc-wave module-flick-item" data-type="wave" data-wave="noise">
+                    <h4 class="module-flick-header">Noise</h4>
+                  </li>
+                  <li class="module-osc-wave module-flick-item" data-type="wave" data-wave="pulse">
+                    <h4 class="module-flick-header">Pulse</h4>
+                  </li>
                 </ul>
-
-              </section>
-            </li>
-            <li class="sub-col sub-col1 module-osc2">
-              <header class="col-header">
-                <h2 class="col-head-2"><abbr title="Oscillator 2">Osc2<abbr></h2>
-              </header>
-              <section class="module-wrapper">
-              </section>
-            </li>
-          </ol>
+          </section>
+          <section class="module-wrapper">
+            <div class="module--toggle">
+              <lable for="module-button-osc-poly">Polyphonic</label>
+              <button id="module-button-osc-poly">On</button>
+              <form class="module-form">
+                <output id="module-range-osc-detune-output" class="module-output">0</output>
+                <input type="range" class="module-range" id="module-range-osc-detune" value="100" />​
+                <label for="module-range-osc" class="module-label range-label">Detune</label>
+                <output id="module-range-osc-width-output" class="module-output">50</output>
+                <input type="range" class="module-range" id="module-range-osc-width" value="50" />​
+                <label for="module-range-osc" class="module-label range-label">Width</label>
+              </form>
+            </div>
+          </section>
         </li>
         <li class="col col2 module module-filter">
           <header class="col-header">
             <h2 class="col-head-2">Filter</h2>
           </header>
           <section class="module-wrapper">
-            <ul class="toolbar">
-              <li><a href="#sparkler">Sparkler</a></li>
-              <li><a href="#circle">Circle</a></li>
-              <li><a href="#notes">Notes</a></li>
-            </ul>
-            <!-- <canvas class="m-filter-pad" id="content"></canvas> -->
+            <canvas class="m-filter-pad"></canvas>
+            <ol>
+              <li>
+                <label>Attack</label>
+                <output>10</output>
+              </li>
+              <li>
+                <label>Decay</label>
+                <output>10</output>
+              </li>
+              <li>
+                <label>Sustain</label>
+                <output>10</output>
+              </li>
+              <li>
+                <label>Release</label>
+                <output>10</output>
+              </li>
+            </ol>
+            <div class="module--toggle">
+              <form class="module-form">
+                <output id="module-range-effect-cutoff-output" class="module-output">0</output>
+                <input type="range" class="module-range" id="module-range-effect-cutoff" value="100" />​
+                <label for="module-range-effect" class="module-label range-label">Cutoff</label>
+                <output id="module-range-effect-resonance-output" class="module-output">0</output>
+                <input type="range" class="module-range" id="module-range-effect-resonance" value="100" />​
+                <label for="module-range-effect" class="module-label range-label">Resonance</label>
+                <output id="module-range-effect-envelope-output" class="module-output">0</output>
+                <input type="range" class="module-range" id="module-range-effect-envelope" value="50" />​
+                <label for="module-range-effect" class="module-label range-label">Envelope Amount</label>
+            </form>
+            </div>
           </section>
         </li>
-        <li class="col col1 module module-modulate">
+        <li class="col col1 module module-effect">
           <header class="col-header">
-            <h2 class="col-head-2"><abbr title="Modulation">Mod</abbr></h2>
+            <h2 class="col-head-2"><abbr title="Effects">Effects</abbr></h2>
           </header>
           <section class="module-wrapper">
             <form class="module-form">
-              <output id="module-range-modulate-output" class="module-output">0</output>
-              <input type="range" class="module-range" id="module-range-modulate-master" value="100" />​
-              <label for="module-range-modulate" class="module-label range-label">Volume</label>
+              <output id="module-range-effect-cutoff-output" class="module-output">0</output>
+              <input type="range" class="module-range" id="module-range-effect-cutoff" value="100" />​
+              <label for="module-range-effect" class="module-label range-label">Cutoff</label>
             </form>
+            <div class="module--toggle">
+              <form class="module-form">
+                <fieldset>
+                  <legend>Delay</legend>
+                  <output id="module-range-effect-delay-wd-output" class="module-output">0</output>
+                  <input type="range" class="module-range" id="module-range-effect-delay-wd" value="100" />​
+                  <label for="module-range-effect" class="module-label range-label">Wet/Dry</label>
+                  <output id="module-range-effect-delay-feedback-output" class="module-output">25</output>
+                  <input type="range" class="module-range" id="module-range-effect-delay-feedback" value="75" />​
+                  <label for="module-range-effect" class="module-label range-label">Feedback</label>
+                  <output id="module-range-effect-delay-length-output" class="module-output">8th</output>
+                  <input type="range" class="module-range" id="module-range-effect-delay-length" value="90" step="10" />​
+                  <label for="module-range-effect" class="module-label range-label">Length</label>
+                </fieldset>
+                <fieldset>
+                  <legend>Reverb</legend>
+                  <output id="module-range-effect-reverb-output" class="module-output">0</output>
+                  <input type="range" class="module-range" id="module-range-effect-reverb" value="100" />​
+                  <label for="module-range-effect" class="module-label range-label">Wet/Dry</label>
+                </fieldset>
+                <fieldset>
+                  <legend>Distortion</legend>
+                  <output id="module-range-effect-distortion-output" class="module-output">0</output>
+                  <input type="range" class="module-range" id="module-range-effect-distortion" value="100" />​
+                  <label for="module-range-effect" class="module-label range-label">Wet/Dry</label>
+                </fieldset>
+              </form>
+            </div>
           </section>
         </li>
         <li class="col col1 module module-master">
@@ -180,11 +246,11 @@
         </li>
       </ol>
     </div>
-    <div id="controls"></div>
+    <!--
     <div id="bpmDelayMenu"></div>
     <div id="info"></div>
-    <select id="wavePopup1" onchange="setWaveTable1(this.value);"></select>
+    <select id="wavePopup1" onchange=""></select>
     <label>Polyphonic</label>
-    <input type="checkbox" onclick="playMonophonic = !playMonophonic;" />
+    -->
   </body>
 </html>

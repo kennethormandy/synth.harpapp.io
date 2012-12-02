@@ -9,9 +9,9 @@ var staticAudioRouting;
 var loader;
 var startTime;
 
-var cutoff = 0.2;
-var resonance = 12;
-var envAmount = 0.4;
+var cutoff = 0;
+var resonance = 0;
+var envAmount = 0.5;
 var width = 0.6;
 var detune1 = 4.5;
 var detune2 = -2.5;

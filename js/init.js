@@ -205,10 +205,10 @@ function SequenceView(sequence, divName) {
     this.name = divName;
     this.numberOfNotes = sequence.loopLength;
     this.numSemitones = 60;
-    this.backgroundColor = "rgb(60,40,40)";
-    this.noteColor = "rgb(200,150,150)";
-    this.gridColor = "rgb(255,255,255)";
-    this.playheadColor = "rgb(255,255,224)";
+    this.backgroundColor = "#FFF";
+    this.noteColor = "#333";
+    this.gridColor = "#007356";
+    this.playheadColor = "#00BF8F";
 
     this.canvas = document.getElementById(divName);
     this.ctx = this.canvas.getContext('2d');
@@ -837,7 +837,7 @@ function addUI() {
     views[j++] = new KnobView("main grunge", 0, -15, 50, UNITS.decibels, 1, false, function(value) { staticAudioRouting.setMainGrunge(value); } );
     views[j++] = new KnobView("volume", volume, 0.0, 1.0, UNITS.generic, 1, false, function(value) { volume = value; } );
 
-    installViews(views, controls);
+    // installViews(views, controls);
 
     sequenceView = new SequenceView(sequence, "sequenceView");
 

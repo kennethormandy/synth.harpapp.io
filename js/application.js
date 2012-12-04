@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(e){
 	// I don't know what I'm doing. Obviously.
 try{Typekit.load();}catch(e){}
@@ -55,11 +57,10 @@ try{Typekit.load();}catch(e){}
 		var controlTempo = this.value;
 		console.log(controlTempo);
 		if(controlTempo >= 240) {
-			this.addClass("error");
 			this.value = 240;
 
 		} else if(controlTempo <= 20) {
-			controlTempo = 20
+			controlTempo = 20;
 		}
 		tempo = controlTempo;
 	});
@@ -70,7 +71,7 @@ try{Typekit.load();}catch(e){}
 		if(playing == true) {
 			startTime = undefined;
 			playing = false;
-			controlButton.html("Start");
+			controlButton.html("Play");
 		} else if(playing == false) {
 			startTime = 0; // There's a problem here, because of normalising
 			// the time somewhere, it doesn't start in the same spot every time.

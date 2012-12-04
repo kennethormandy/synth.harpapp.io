@@ -24,12 +24,13 @@
           </header>
           <section class="module-wrapper">
             <!-- <div class="m-play-controls"> -->
-              <button id="controls-play">Play</button>
-              <label for="controls-tempo">Tempo</label>
-              <input type="number" pattern="[0-9]*" value="120" id="controls-tempo" name="controls-tempo" />
+              <button class="button control-button" id="controls-play">Play</button>
+              <label for="controls-tempo" class="label-tempo">Tempo</label>
+              <input type="number" pattern="[0-9]*" value="120" id="controls-tempo" name="controls-tempo" class="number-input control-number" />
+              <div class="icloud">Load Sequence</div>
             <!-- </div> -->
             <div class="module--toggle">
-                <canvas id="sequenceView"></canvas>
+                <canvas id="sequenceView" height="200px" width="350px"></canvas>
               <!-- <table class="m-play-grid">
                 <tr>
                   <td id="key_1" class="m-play-button"></td>
@@ -119,7 +120,8 @@
           <header class="col-header">
             <h2><abbr title="Oscillators">OSCs</abbr></h2>
           </header>
-          <section class="module-wrapper module-flick">
+          <section class="module-wrapper">
+            <div class="module-flick">
              <ul class="module-osc-waves module-flick-wrap" id="module-flick-osc">
                   <li class="module-osc-wave module-flick-item" data-type="wave" data-wave="saw">
                     <h4 class="module-flick-header">Sawtooth</h4>
@@ -137,11 +139,12 @@
                     <h4 class="module-flick-header">Pulse</h4>
                   </li>
                 </ul>
+              </div>
           </section>
-          <section class="module-wrapper">
+          <section class="module-wrapper osc-toggle-wrapper">
             <div class="module--toggle">
               <lable for="module-button-osc-poly">Polyphonic</label>
-              <button id="module-button-osc-poly">On</button>
+              <button class="button module-button" id="module-button-osc-poly">On</button>
               <form class="module-form">
                 <output id="module-range-osc-detune-output" class="module-output">0</output>
                 <input type="range" class="module-range" id="module-range-osc-detune" value="100" />​
@@ -158,25 +161,27 @@
             <h2 class="col-head-2">Filter</h2>
           </header>
           <section class="module-wrapper">
-            <canvas class="m-filter-pad"></canvas>
-            <ol>
-              <li>
-                <label>Attack</label>
-                <output>10</output>
-              </li>
-              <li>
-                <label>Decay</label>
-                <output>10</output>
-              </li>
-              <li>
-                <label>Sustain</label>
-                <output>10</output>
-              </li>
-              <li>
-                <label>Release</label>
-                <output>10</output>
-              </li>
-            </ol>
+            <div class="module-filter-main">
+              <canvas class="m-filter-pad"></canvas>
+              <ol class="module-filter-outputs">
+                <li class="module-filter-outputs-item">
+                  <label>Attack</label>
+                  <output>0</output>
+                </li>
+                <li class="module-filter-outputs-item">
+                  <label>Decay</label>
+                  <output>50</output>
+                </li>
+                <li class="module-filter-outputs-item">
+                  <label>Sustain</label>
+                  <output>35</output>
+                </li>
+                <li class="module-filter-outputs-item">
+                  <label>Release</label>
+                  <output>80</output>
+                </li>
+              </ol>
+            </div>
             <div class="module--toggle">
               <form class="module-form">
                 <output id="module-range-effect-cutoff-output" class="module-output">0</output>
@@ -194,7 +199,7 @@
         </li>
         <li class="col col1 module module-effect">
           <header class="col-header">
-            <h2 class="col-head-2"><abbr title="Effects">Effects</abbr></h2>
+            <h2 class="col-head-2"><abbr title="Effects">FXs</abbr></h2>
           </header>
           <section class="module-wrapper">
             <form class="module-form">
@@ -246,11 +251,11 @@
         </li>
       </ol>
     </div>
-    <!--
+    <div style="display: none"><!-- for now -->
     <div id="bpmDelayMenu"></div>
     <div id="info"></div>
     <select id="wavePopup1" onchange=""></select>
     <label>Polyphonic</label>
-    -->
+    </div>
   </body>
 </html>

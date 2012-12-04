@@ -1,10 +1,10 @@
 // Copyright 2011, Google Inc.
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 //     * Redistributions of source code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
@@ -14,7 +14,7 @@
 //     * Neither the name of Google Inc. nor the names of its
 // contributors may be used to endorse or promote products derived from
 // this software without specific prior written permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -48,11 +48,11 @@ function KnobView(name, value, minValue, maxValue, units, precision, useLogScale
     this.units = units;
     this.useLogScale = useLogScale;
     this.precision = precision;
-    
+
     this.preValue = this.valueToPre(value);
-    
+
     this.onchange = onchange;
-    
+
     this.backgroundColor = "rgb(60,40,40)";
     this.knobColor = "rgb(200,150,150)";
     this.knobOutlineColor = "rgb(255,255,255)";
@@ -67,12 +67,12 @@ KnobView.prototype.attach = function() {
 
     var ctx = canvas.getContext('2d');
     this.ctx = ctx;
-    
+
     this.width = canvas.width;
     this.height = canvas.height;
 
     var view = this;
-    canvas.addEventListener("mousedown", 
+    canvas.addEventListener("mousedown",
         function(event) {
             // var eventInfo = {event: event, element:view.canvas};
             // var position = getRelativeCoordinates(eventInfo);
@@ -83,14 +83,14 @@ KnobView.prototype.attach = function() {
             view.isDragging = true;
             view.startPosition = position;
             view.startPreValue = view.valueToPre(view.value);
-            
+
             view.mouseDown(position);
         },
         true
     );
-    
+
     // Note: document handles mouseup and mousemove events.
-    document.addEventListener("mousemove", 
+    document.addEventListener("mousemove",
         function(event) {
             if (currentView && currentView == view) {
                 var position = getElementCoordinates(currentView.canvas, event);
@@ -98,9 +98,9 @@ KnobView.prototype.attach = function() {
                 // var c = getAbsolutePosition(currentView.canvas);
                 // c.x = event.x - c.x;
                 // c.y = event.y - c.y;
-                // 
+                //
                 // var position = c;
-                // 
+                //
                 // // This isn't the best, should abstract better.
                 // if (isNaN(c.y)) {
                 //     var eventInfo = {event: event, element:currentView.canvas};
@@ -129,7 +129,7 @@ KnobView.prototype.attach = function() {
         true
     );
 
-    this.draw();    
+    this.draw();
 }
 
 KnobView.prototype.preToValue = function(preValue) {
@@ -164,7 +164,7 @@ KnobView.prototype.draw = function() {
     // Draw background.
     ctx.fillStyle = this.backgroundColor;
     ctx.fillRect(0,0, width, height);
-    
+
     // Draw body of knob.
     ctx.fillStyle = this.knobColor;
     ctx.beginPath();
@@ -185,11 +185,11 @@ KnobView.prototype.draw = function() {
     ctx.lineWidth = 4;
     ctx.lineCap = "round";
     ctx.beginPath();
-    
+
     var startAngle = (2 - 0.25)*Math.PI;
     var endAngle = 0.25*Math.PI;
     var angle = -0.5*Math.PI + startAngle * (1 - this.preValue) + endAngle * this.preValue;
-        
+
     var knobx = 0.8 * knobRadius * Math.cos(angle);
     var knoby = 0.8 * knobRadius * Math.sin(angle);
     ctx.moveTo(knobRadius + knobOffset, height / 2);
@@ -209,7 +209,7 @@ KnobView.prototype.draw = function() {
     // Draw value.
     var valuePosition = width - 30; //2*knobRadius + knobOffset + 300;
     var s = this.value.toFixed(this.precision);
-    
+
     switch (this.units) {
         case UNITS.hertz:
         s += " Hz"; break;
@@ -225,10 +225,10 @@ KnobView.prototype.draw = function() {
         s += " bpm"; break;
         case UNITS.generic:
     }
-    
+
     ctx.textAlign = "right";
     ctx.fillText(s, valuePosition, textVerticalPosition);
-    
+
 }
 
 KnobView.prototype.mouseDown = function(position) {
@@ -248,10 +248,10 @@ KnobView.prototype.mouseDrag = function(position) {
     var k = this.startPreValue + -deltay / range;
     if (k < 0) k = 0;
     if (k > 1) k = 1;
-    
+
     this.preValue = k;
     this.value = this.preToValue(k);
-    
+
     if (this.units == UNITS.indexed)
         this.value = Math.floor(this.value);
 
@@ -266,16 +266,16 @@ function installViews(views, parentDiv) {
     var ss = "";
     for (var i = 0; i < views.length; ++i) {
         var view = views[i];
-        
+
         var s = "<canvas id=\"";
         s += view.name; // FIXME: namespace...
         s += "\" width=\"260\" height=\"24\"> </canvas>";
 
         ss += s;
     }
-    
+
     // alert("ss = " + ss);
-    
+
     parentDiv.innerHTML = ss;
 
     for (var i = 0; i < views.length; ++i) {

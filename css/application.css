@@ -136,7 +136,8 @@ body {
   font-family: "jaf-facitweb", "Avenir Next", Verdana, sans-serif;
   font-weight: 400;
   text-align: left;
-  color: white; }
+  color: white;
+  background: #333; }
 
 header {
   text-transform: uppercase;
@@ -156,6 +157,33 @@ canvas {
   top: 0;
   z-index: 0; }
 
+#sequenceView {
+  float: right;
+  clear: left;
+  top: -14em;
+  overflow: visible;
+  position: relative; }
+
+.icloud {
+  font-size: 0.5em;
+  display: block;
+  width: 60px;
+  float: left;
+  clear: left;
+  margin: 5em 0;
+  background: #008c69;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #005943;
+  -webkit-box-shadow: inset 0 0 1px white;
+  -moz-box-shadow: inset 0 0 1px white;
+  box-shadow: inset 0 0 1px white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
+
 input, textarea {
   -webkit-user-select: text;
   -khtml-user-select: text;
@@ -167,13 +195,51 @@ input, textarea {
 input[type="number"] {
   width: 100%;
   max-width: 3em;
-  padding: 0;
-  margin: 0; }
+  margin: 0;
+  padding: 0; }
+
+.label-tempo {
+  font-size: 0.5em;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.33);
+  width: 60px;
+  text-align: center;
+  margin: 2em 0 0.5em 0;
+  display: block; }
+
+input[type="number"].control-number {
+  background: #FFF;
+  border: 1px solid #005943;
+  padding: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  clear: left;
+  float: left; }
+
+.control-button, button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #333;
+  border: none;
+  color: #FFF;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.75);
+  -moz-box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.75);
+  font-size: 0.75em;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #222; }
 
 .loading {
   position: absolute;
   text-align: center;
-  padding: 50% 0 0 0;
+  padding: 25% 0 0 0;
   font-size: 3em;
   font-weight: 800;
   bottom: 0;
@@ -181,14 +247,15 @@ input[type="number"] {
   float: left;
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  z-index: 1000; }
 
 .main {
   font-size: 1.25em;
   width: 100.3%;
   height: 480px;
+  height: 300px;
   overflow: hidden;
-  height: 320px;
   background: #CCC;
   border-top: 1px solid #333;
   border-bottom: 1px solid #333; }
@@ -234,7 +301,8 @@ input[type="number"] {
   -moz-transition: all 1s;
   -ms-transition: all 1s;
   -o-transition: all 1s;
-  transition: all 1s; }
+  transition: all 1s;
+  -webkit-transform: translateZ(0); }
 
 .module--closed {
   width: 0;
@@ -247,6 +315,15 @@ input[type="number"] {
   -o-transition: all 1s;
   transition: all 1s; }
 
+@-webkit-keyframes module-fade-in {
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0; }
+
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1; } }
+
 .module--open {
   width: 100%;
   padding: 0 1em;
@@ -256,8 +333,16 @@ input[type="number"] {
   -o-transition: all 1s;
   transition: all 1s; }
 
+.module-effect .col-header, .module-master .col-header {
+  margin-bottom: 2.5em; }
+
+.module--open .col-header {
+  margin-bottom: none !important; }
+
 .module--toggle {
-  display: none; }
+  display: none;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0; }
 
 .module--open .module--toggle {
   display: block;
@@ -296,7 +381,7 @@ input[type="number"] {
 
 .module-range {
   display: block;
-  width: 11.5em;
+  width: 11em;
   height: 1em;
   position: relative;
   float: left;
@@ -395,6 +480,13 @@ input[type="number"] {
   background: #008c69;
   z-index: 10; }
 
+.module-osc .module-wrapper {
+  float: left; }
+
+.module-wrapper.module-flick {
+  width: 60px;
+  outline: 1px solid black; }
+
 .module-osc-wave {
   display: block;
   position: relative;
@@ -438,7 +530,7 @@ input[type="number"] {
 
 .m-filter-pad {
   background: #007356;
-  width: 6.9em;
+  width: 100%;
   height: 10em;
   -webkit-border-radius: 0.25em;
   -moz-border-radius: 0.25em;
@@ -451,6 +543,28 @@ input[type="number"] {
   border: 1px solid #333;
   float: left; }
 
+.module-filter-main {
+  width: 6.9em;
+  float: left; }
+
+.module-filter-outputs {
+  float: left;
+  margin: 0.5em 0 0 0;
+  padding: 0;
+  list-style-type: none;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.33); }
+
+.module-filter-outputs-item {
+  float: left;
+  font-size: 0.4em;
+  text-align: center;
+  width: 34px;
+  display: block; }
+
+.module-filter-outputs-item output {
+  font-size: 2em;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.33); }
+
 .module-effect {
   background: #00bf8f; }
 
@@ -462,7 +576,8 @@ input[type="number"] {
 .module-flick {
   overflow: hidden;
   clear: left;
-  position: relative; }
+  position: relative;
+  width: 60px; }
 
 /* Scrolling container */
 .module-flick-wrap {
@@ -482,7 +597,9 @@ input[type="number"] {
 /* Item indicator wrapper */
 .flickableIndicator {
   text-align: center;
-  line-height: 1em; }
+  line-height: 1em;
+  float: left;
+  clear: left; }
 
 /* Item indicator */
 .flickableIndicator span {
